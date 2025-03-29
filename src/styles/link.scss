@@ -10,30 +10,28 @@
 
     &.nav-link {
         margin-right: 2rem;
+        color: tokens.$colors-neutral-darkgray;
+
+        &:hover {
+            color: tokens.$colors-green-shade-2;
+        }
+    
+        &:active {
+            color: tokens.$colors-neutral-mediumgray;
+        }
 
         &.selected {
-            &.nav-invisible {
-                color: tokens.$colors-green-tint-2;
-
-                &:hover {
-                    color: tokens.$colors-green-tint-1;
-                }
-            
-                &:active {
-                    color: tokens.$colors-primary-green;
-                }
-            }
-
-            color: tokens.$colors-green-tint-2;
+            color: tokens.$colors-green-shade-2;
 
             &:hover {
-                color: tokens.$colors-green-tint-1;
+                color: tokens.$colors-neutral-mediumgray;
             }
         
             &:active {
-                color: tokens.$colors-green-tint-2;
+                color: tokens.$colors-neutral-darkgray;
             }
         }
+
     }
 
     &.nav-menu-link {

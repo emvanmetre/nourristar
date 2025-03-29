@@ -36,25 +36,25 @@
     font-weight: 900;
 
     &.xxs {
-        font-size: tokens.$size-text-23;
+        font-size: tokens.$size-text-16;
     }
     &.xs {
-        font-size: tokens.$size-text-29;
+        font-size: tokens.$size-text-18;
     }
     &.sm {
-        font-size: tokens.$size-text-36;
+        font-size: tokens.$size-text-23;
     }
     &.md {
-        font-size: tokens.$size-text-45;
+        font-size: tokens.$size-text-29;
     }
     &.lg {
-        font-size: tokens.$size-text-56;
+        font-size: tokens.$size-text-36;
     }
     &.xl {
-        font-size: tokens.$size-text-70;
+        font-size: tokens.$size-text-45;
     }
     &.xxl {
-        font-size: tokens.$size-text-88;
+        font-size: tokens.$size-text-56;
     }
 }
 
