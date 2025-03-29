@@ -13,8 +13,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run build && concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server/index.js",
+    "client": "react-scripts start",
+    "build": "npm run style-build && react-scripts build",
+    "style-build": "npx tsc --outDir ./build && node scripts-js/export-tokens.js && node scripts-js/compile-scss.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
