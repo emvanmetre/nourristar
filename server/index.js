@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 // const router = express.Router()
-import Components from './models/schemas.js'
+import Components from './schemas.js'
 
 const app = express()
 

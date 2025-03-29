@@ -1,6 +1,6 @@
 import { Router } from 'express'
 const router = Router()
-import { Component } from '../models/schemas'
+import { Component } from './schemas'
 
 router.post('/post', async (req, res) => {
   const { name, id, html, css, js } = req.body
