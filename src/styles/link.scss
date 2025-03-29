@@ -1,7 +1,7 @@
 @use './tokens.scss';
 
 .link {
-    color: tokens.$colors-primary-grape;
+    color: tokens.$colors-primary-green;
     text-decoration: none;
     display: flex;
     flex-direction: row;
@@ -13,25 +13,25 @@
 
         &.selected {
             &.nav-invisible {
-                color: tokens.$colors-accent-highlight;
+                color: tokens.$colors-green-tint-2;
 
                 &:hover {
-                    color: tokens.$colors-accent-sunlight;
+                    color: tokens.$colors-green-tint-1;
                 }
             
                 &:active {
-                    color: tokens.$colors-accent-honey;
+                    color: tokens.$colors-primary-green;
                 }
             }
 
-            color: tokens.$colors-primary-fuschia;
+            color: tokens.$colors-green-tint-2;
 
             &:hover {
-                color: tokens.$colors-primary-violet;
+                color: tokens.$colors-green-tint-1;
             }
         
             &:active {
-                color: tokens.$colors-primary-1;
+                color: tokens.$colors-green-tint-2;
             }
         }
     }
@@ -43,39 +43,41 @@
         border-radius: tokens.$size-radius-4px;
 
         &.selected {
-            color: tokens.$colors-primary-fuschia;
+            color: tokens.$colors-primary-green;
 
             &:hover {
-                color: tokens.$colors-primary-violet;
+                color: tokens.$colors-green-tint-1;
             }
         
             &:active {
-                color: tokens.$colors-primary-1;
+                color: tokens.$colors-green-tint-2;
             }
         }
     }
 
     &.nav-title-link {
-        color: tokens.$colors-primary-1;
+        color: tokens.$colors-primary-green;
         flex-direction: column;
         margin-right: 0px;
         padding: tokens.$size-spacing-2 tokens.$size-spacing-4;
         border-radius: tokens.$size-radius-4px;
 
         &:hover {
-            color: tokens.$colors-primary-fuschia;
+            color: tokens.$colors-green-tint-1;
         }
     
         &:active {
-            color: tokens.$colors-primary-violet;
+            color: tokens.$colors-green-tint-2;
         }
     }
 
-    &:hover {
-        color: tokens.$colors-primary-violet;
-    }
+    
 
-    &:active {
-        color: tokens.$colors-primary-1;
-    }
+                &:hover {
+                    color: tokens.$colors-green-tint-1;
+                }
+            
+                &:active {
+                    color: tokens.$colors-primary-green;
+                }
 }
