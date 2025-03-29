@@ -1,0 +1,89 @@
+@use './tokens.scss';
+
+.content-bounded {
+    background: tokens.$colors-neutral-white;
+    margin: tokens.$size-sem-content-margin auto;
+    min-width: 200px;
+    max-width: 1000px;
+    padding: tokens.$size-sem-content-padding;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    align-items: center;
+    padding: tokens.$size-sem-content-padding;
+    box-sizing: border-box;
+    &.wrap {
+        flex-wrap: wrap;
+    }
+    
+    &.center {
+        justify-content: center;
+    }
+    
+    &.padding-none {
+        padding: 0;
+        gap: 0;
+    }
+
+    @media only screen and (min-width: 1150px) {
+        flex-direction: row;
+        gap: 30px;
+        &.padding-none {
+            gap: 0;
+        }
+
+        &.wide-flex-col {
+            flex-direction: column;
+            align-items: left;
+        }
+    }
+}
+
+.content-row {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    @media only screen and (min-width: 1150px) {
+        flex-direction: column;
+    }
+}
+
+.col-100 {
+    width: 100%;
+    min-width: 600px;
+    display:flex;
+}
+
+.col-40 {
+    width: 40%;
+}
+
+.col-60 {
+    width: 60%;
+    align-items: flex-end;
+}
+  
+.justify-center {
+    align-items: center;
+    text-align: center;
+}
+  
+.button-row {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    gap: tokens.$size-spacing-4;
+    width: 100%;
+    padding: tokens.$size-spacing-4;
+    box-sizing: border-box;
+
+    &.align-right {
+        justify-content: flex-end;
+    }
+}
