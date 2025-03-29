@@ -1,30 +1,37 @@
-.retro-window {
-  position: absolute;
-  top: 126px;
-  left: 388px;
+@use './tokens.scss';
+@use './token-map.scss';
+
+.cls-1, .cls-2 {fill: #8ec02e;}
+
+.cls-2 {
+  stroke: #8ec02e;
+  stroke-miterlimit: 10;
+  stroke-width: tokens.$size-spacing-3;
 }
 
-.retro-window-sm {
-  position: absolute;
-  top: 126px;
-  right: 0px;
+.star-svg-1 {
+  fill: none;
+  stroke: #231f20;
 }
 
-.retro-grid {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+.star-svg-1, .star-svg-2 {
+  stroke-miterlimit: 10;
+  stroke-width: tokens.$size-spacing-8;
 }
 
-.retro-grid-sm {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  height: 488px;
+.star-svg-3 {
+  fill: #fff;
 }
 
-.innovate-logo {
-  position: absolute;
-  top: 347px;
-  left: calc(50% - 334px);
+.star-svg-2 {
+  fill: #f1f5a5;
+  stroke: #b3e48e;
+}
+
+.logo {
+  height: tokens.$size-text-70;
+}
+
+.star-logo {
+  height: tokens.$size-text-45;
 }

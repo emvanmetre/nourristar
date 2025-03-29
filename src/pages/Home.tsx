@@ -17,22 +17,25 @@ const Item = styled(Paper)(({ theme }) => ({
 const Home = () => {
   document.body.classList.add('bg-light')
   return (
-    <div className="content">
-      <Grid container spacing={2}>
-        <Grid size={8}>
-          <Item>size=8</Item>
+    <>
+      <div className="large-navbar-space"></div>
+      <div className="content">
+        <Grid container spacing={2}>
+          <Grid size={8}>
+            <Item>size=8</Item>
+          </Grid>
+          <Grid size={4}>
+            <Item>size=4</Item>
+          </Grid>
+          <Grid size={4}>
+            <Item>size=4</Item>
+          </Grid>
+          <Grid size={8}>
+            <Item>size=8</Item>
+          </Grid>
         </Grid>
-        <Grid size={4}>
-          <Item>size=4</Item>
-        </Grid>
-        <Grid size={4}>
-          <Item>size=4</Item>
-        </Grid>
-        <Grid size={8}>
-          <Item>size=8</Item>
-        </Grid>
-      </Grid>
-    </div>
+      </div>
+    </>
   )
 }
 

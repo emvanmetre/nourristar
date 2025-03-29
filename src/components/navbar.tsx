@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import { Icon, Menu, MenuItem } from '@mui/material'
-import { Text, Link } from './index'
+import { IconButton, Menu, MenuItem } from '@mui/material'
+import { Text, Link, Icon, Logo, StarLogo } from './index'
 import '../style.css'
 import { useLocation } from 'react-router-dom'
 
@@ -84,20 +84,28 @@ const Navbar = (props: NavbarProps) => {
             </MenuItem>
           </Menu>
         </div>
-        <Link to="/" type="nav-title">
-          <Text font="display" size="md">
-            nourristar
-          </Text>
-        </Link>
+
+        <div className="button-row space-between justify-center">
+          <div className="button-row">
+            <Link to="/" type="nav-title">
+              <StarLogo></StarLogo>
+              <Logo></Logo>
+            </Link>
+          </div>
+          <div className="button-box">
+            <IconButton id="basic-button" aria-controls={open ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={open ? 'true' : undefined} onClick={handleClick}>
+              <Icon svg={'menu'} size="md" color="colors-neutral-darkgray"></Icon>
+            </IconButton>
+          </div>
+        </div>
       </nav>
     )
   } else {
     return (
       <nav className={navClasses}>
         <Link to="/" type="nav-title">
-          <Text font="display" size="md">
-            nourristar
-          </Text>
+          <StarLogo></StarLogo>
+          <Logo></Logo>
         </Link>
         <div className="nav-list">
           <Link to="/howtouse" type="nav" selected={currPath === '/howtouse'}>

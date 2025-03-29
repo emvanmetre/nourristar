@@ -1,5 +1,15 @@
 @use './tokens.scss';
 
+.large-navbar-space {
+    width: 100%;
+    height: calc(tokens.$size-sem-navbar-height + 20px);
+}
+
+.navbar-space {
+    width: 100%;
+    height: tokens.$size-sem-navbar-height;
+}
+
 .content-bounded {
     background: tokens.$colors-neutral-white;
     margin: tokens.$size-sem-content-margin auto;
@@ -75,9 +85,9 @@
 .button-row {
     display: flex;
     flex-direction: row;
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    // position: absolute;
+    // left: 0;
+    // bottom: 0;
     gap: tokens.$size-spacing-4;
     width: 100%;
     padding: tokens.$size-spacing-4;
@@ -86,4 +96,13 @@
     &.align-right {
         justify-content: flex-end;
     }
+
+    &.space-between {
+        justify-content: space-between;
+    }
+}
+
+.button-box {
+    width: tokens.$size-text-36;
+    height: tokens.$size-text-36;
 }
