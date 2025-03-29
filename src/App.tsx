@@ -4,6 +4,7 @@ import './style.css'
 import React, { useLayoutEffect } from 'react'
 import { Home } from './pages'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { Navbar } from './components'
 
 const ScrollToTop = () => {
   const location = useLocation()
@@ -19,7 +20,7 @@ const ScrollToTop = () => {
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />

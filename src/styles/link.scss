@@ -1,0 +1,81 @@
+@use './tokens.scss';
+
+.link {
+    color: tokens.$colors-primary-grape;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+
+    &.nav-link {
+        margin-right: 2rem;
+
+        &.selected {
+            &.nav-invisible {
+                color: tokens.$colors-accent-highlight;
+
+                &:hover {
+                    color: tokens.$colors-accent-sunlight;
+                }
+            
+                &:active {
+                    color: tokens.$colors-accent-honey;
+                }
+            }
+
+            color: tokens.$colors-primary-fuschia;
+
+            &:hover {
+                color: tokens.$colors-primary-violet;
+            }
+        
+            &:active {
+                color: tokens.$colors-primary-1;
+            }
+        }
+    }
+
+    &.nav-menu-link {
+        flex-direction: column;
+        margin-right: 0px;
+        padding: tokens.$size-spacing-2 tokens.$size-spacing-4;
+        border-radius: tokens.$size-radius-4px;
+
+        &.selected {
+            color: tokens.$colors-primary-fuschia;
+
+            &:hover {
+                color: tokens.$colors-primary-violet;
+            }
+        
+            &:active {
+                color: tokens.$colors-primary-1;
+            }
+        }
+    }
+
+    &.nav-title-link {
+        color: tokens.$colors-primary-1;
+        flex-direction: column;
+        margin-right: 0px;
+        padding: tokens.$size-spacing-2 tokens.$size-spacing-4;
+        border-radius: tokens.$size-radius-4px;
+
+        &:hover {
+            color: tokens.$colors-primary-fuschia;
+        }
+    
+        &:active {
+            color: tokens.$colors-primary-violet;
+        }
+    }
+
+    &:hover {
+        color: tokens.$colors-primary-violet;
+    }
+
+    &:active {
+        color: tokens.$colors-primary-1;
+    }
+}
