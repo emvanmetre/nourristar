@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 // const router = express.Router()
-import Components from './schemas.js'
+import Users from './schemas.js'
 
 const app = express()
 
@@ -23,22 +23,22 @@ app.use(cors(corsOptions))
 //app.use('/', router)
 
 app.post('/post', async (req, res) => {
-  const { name, html, css, js } = req.body
-  const componentData = { name: name, html: html, css: css, js: js }
-  const newComponent = new Components(componentData)
-  const saveComponent = await newComponent.save()
-  if (saveComponent) {
-    res.send('Component successfully saved!')
+  const { username, password } = req.body
+  const userData = { username: username, password: password }
+  const newUser = new Users(userData)
+  const saveUser = await newUser.save()
+  if (saveUser) {
+    res.send('Users successfully saved!')
   }
   res.end()
 })
 
 app.get('/Nourristar', async (req, res) => {
-  const components = Components
+  const users = Users
 
   try {
-    const componentData = await components.find({}).exec()
-    res.send(JSON.stringify(componentData))
+    const userData = await users.find({}).exec()
+    res.send(JSON.stringify(userData))
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: err.message })
@@ -46,13 +46,13 @@ app.get('/Nourristar', async (req, res) => {
 })
 
 app.get('/Nourristar/:id', async (req, res) => {
-  const components = Components
+  const users = Users
   try {
-    const componentData = await components.findById(req.params.id)
-    if (!componentData) {
-      res.status(404).json({ message: 'Component not found' })
+    const userData = await users.findById(req.params.id)
+    if (!userData) {
+      res.status(404).json({ message: 'User not found' })
     } else {
-      res.send(JSON.stringify(componentData))
+      res.send(JSON.stringify(userData))
     }
   } catch (err) {
     console.error(err)
@@ -82,10 +82,10 @@ mongoose.connection.once('open', async () => {
   } catch (err) {
     console.error('❌ Error listing collections:', err)
   }
-  const components = Components
+  const users = Users
   try {
-    const componentData = await components.find({}).exec()
-    console.log(componentData)
+    const userData = await users.find({}).exec()
+    console.log(userData)
   } catch (err) {
     console.log(err)
   }

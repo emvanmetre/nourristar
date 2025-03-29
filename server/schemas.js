@@ -1,15 +1,12 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
-const componentSchema = new Schema(
+const userSchema = new Schema(
   {
-    name: { type: String },
-    // id: { type: String },
-    html: { type: String },
-    css: { type: String },
-    js: { type: String },
+    username: { type: String },
+    password: { type: String },
   },
-  { collection: 'Components' },
+  { collection: 'Users' },
 )
 
-const Components = mongoose.model('Components', componentSchema)
-export default Components
+const Users = mongoose.model('Users', userSchema)
+export default Users
