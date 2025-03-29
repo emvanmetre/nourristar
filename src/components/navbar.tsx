@@ -63,21 +63,21 @@ const Navbar = (props: NavbarProps) => {
           <Menu anchorEl={anchorEl} id="account-menu" open={open} onClose={handleClose} onClick={handleClose}>
             <MenuItem>
               <Link to="/explore" type="nav-menu" selected={currPath === '/explore'}>
-                <Text font="display" size="xxs" slot="label">
+                <Text font="display" size="xxs" slot="label" weight="medium">
                   Explore Recipes
                 </Text>
               </Link>
             </MenuItem>
             <MenuItem>
               <Link to="/create" type="nav-menu" selected={currPath === '/create'}>
-                <Text font="display" size="xxs" slot="label">
+                <Text font="display" size="xxs" slot="label" weight="medium">
                   Create a Recipe
                 </Text>
               </Link>
             </MenuItem>
             <MenuItem>
               <Link to="/howtouse" type="nav-menu" selected={currPath === '/howtouse'}>
-                <Text font="display" size="xxs" slot="label">
+                <Text font="display" size="xxs" slot="label" weight="medium">
                   How to Use
                 </Text>
               </Link>
@@ -101,17 +101,17 @@ const Navbar = (props: NavbarProps) => {
         </Link>
         <div className="nav-list">
           <Link to="/howtouse" type="nav" selected={currPath === '/howtouse'}>
-            <Text font="display" size="xs">
+            <Text font="display" size="xs" weight="medium">
               How to Use
             </Text>
           </Link>
           <Link to="/create" type="nav" selected={currPath === '/create'}>
-            <Text font="display" size="xs">
+            <Text font="display" size="xs" weight="medium">
               Create a Recipe
             </Text>
           </Link>
           <Link to="/explore" type="nav" selected={currPath === '/explore'}>
-            <Text font="display" size="xs">
+            <Text font="display" size="xs" weight="medium">
               Explore Recipes
             </Text>
           </Link>
