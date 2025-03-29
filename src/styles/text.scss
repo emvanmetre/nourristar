@@ -1,0 +1,125 @@
+@use './tokens.scss';
+@use './token-map.scss';
+
+.text {
+    font-size: tokens.$size-text-18;
+    font-family: 'Poppins';
+    font-weight: 400;
+    text-decoration: none;
+
+    &.xxs {
+        font-size: tokens.$size-text-12;
+    }
+    &.xs {
+        font-size: tokens.$size-text-16;
+    }
+    &.sm {
+        font-size: tokens.$size-text-18;
+    }
+    &.md {
+        font-size: tokens.$size-text-23;
+    }
+    &.lg {
+        font-size: tokens.$size-text-29;
+    }
+    &.xl {
+        font-size: tokens.$size-text-36;
+    }
+    &.xxl {
+        font-size: tokens.$size-text-45;
+    }
+}
+
+.text-display {
+    font-size: 36px;
+    font-family: 'Red Hat Display';
+    font-weight: 900;
+
+    &.xxs {
+        font-size: tokens.$size-text-23;
+    }
+    &.xs {
+        font-size: tokens.$size-text-29;
+    }
+    &.sm {
+        font-size: tokens.$size-text-36;
+    }
+    &.md {
+        font-size: tokens.$size-text-45;
+    }
+    &.lg {
+        font-size: tokens.$size-text-56;
+    }
+    &.xl {
+        font-size: tokens.$size-text-70;
+    }
+    &.xxl {
+        font-size: tokens.$size-text-88;
+    }
+}
+
+.text-accent {
+    font-size: tokens.$size-text-18;
+    font-family: 'Libre Bodoni';
+    font-weight: 700;
+
+    &.xxs {
+        font-size: tokens.$size-text-29;
+    }
+    &.xs {
+        font-size: tokens.$size-text-36;
+    }
+    &.sm {
+        font-size: tokens.$size-text-45;
+    }
+    &.md {
+        font-size: tokens.$size-text-56;
+    }
+    &.lg {
+        font-size: tokens.$size-text-70;
+    }
+    &.xl {
+        font-size: tokens.$size-text-88;
+    }
+    &.xxl {
+        font-size: tokens.$size-text-96;
+    }
+
+    &.italic {
+        font-style: italic;
+    }
+}
+
+.text-black {
+    font-weight: 900;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-semibold {
+    font-weight: 600;
+}
+
+.text-medium {
+    font-weight: 500;
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-light {
+    font-weight: 300;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+@each $-color, $-token in token-map.$token-map {
+    .text-color#{$-color} {
+        color: $-token;
+    }
+}
