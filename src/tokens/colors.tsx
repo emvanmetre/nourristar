@@ -20,11 +20,11 @@ const Colors = {
   // Accent Palette (yellows)
   green: {
     tint: {
-      '1': '#B3E48E',
-      '2': '#8EC02E',
-      '3': '#E49C0F',
-      '4': '#FFCE70',
-      '5': '#E49C0F',
+      '1': '#F0FBDC',
+      '2': '#E0F6B7',
+      '3': '#CAEC89',
+      '4': '#AACE65',
+      '5': '#8EC02E',
     },
     shade: {
       '1': '#5DAC22',
