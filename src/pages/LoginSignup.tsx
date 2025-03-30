@@ -5,6 +5,7 @@ import theme from '../core/theme'
 import { Link } from 'react-router-dom'
 
 const LoginSignup = () => {
+  document.body.classList.remove('bg-image')
   // Toggle between 'login' and 'signup' modes
   const [mode, setMode] = useState('login')
   const [username, setUsername] = useState('')

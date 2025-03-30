@@ -20,6 +20,7 @@ type CreateRecipeProps = {
 
 const Create = (props: CreateRecipeProps) => {
   document.body.classList.add('bg-light')
+  document.body.classList.remove('bg-image')
   return (
     <>
       <div className="large-navbar-space"></div>
