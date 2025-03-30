@@ -25,6 +25,13 @@
   position: aboslute;
   z-index: -1;
 }
+
+.bg-image {
+  background-image: url('/public/home_page_background.png');
+  background-position: center;
+  height: 2350px;
+  width: 100%;
+}
 .spacer-sm {
   height: 50px;
 }

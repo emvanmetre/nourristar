@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import { TextEditor } from '../components'
 
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
   ...theme.typography.body2,
@@ -15,10 +16,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 const Home = () => {
-  document.body.classList.add('bg-light')
+  document.body.classList.add('bg-image')
   return (
-    <>
-      <div className="large-navbar-space"></div>
+    <>      
+    <div className="large-navbar-space"></div>
     </>
   )
 }
