@@ -16,8 +16,8 @@ const recipeSchema = new Schema(
     dateTime: { type: Date, default: Date.now },
     tags: { type: String },
     pictureURL: { type: String },
-    title: { type: String },
-    content: { type: String, required: true },
+    title: { type: String, required: true },
+    content: { type: String },
   },
   { collection: 'Recipes' },
 )

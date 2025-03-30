@@ -178,7 +178,7 @@ const RecipeDisplay = () => {
         <Grid container spacing={3} style={{ flexGrow: 1 }}>
           {filteredRecipes.map((recipe, index) => (
             <Grid size={6} key={index}>
-              <Link to={`/recipe/${recipe.title.replace(/\s+/g, '-')}`} style={{ textDecoration: 'none' }}>
+              <Link to={`/recipe/${recipe.title?.replace(/\s+/g, '-')}`} style={{ textDecoration: 'none' }}>
                 <Card>
                   {
                     <CardMedia
