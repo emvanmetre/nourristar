@@ -39,6 +39,10 @@ const RecipePage = () => {
   return (
     <div>
       <div className="content center gap-none">
+        {recipe.pictureURL && <img src={recipe.pictureURL} alt={recipe.title} />}
+        <h1>{recipe.title}</h1>
+        {/* <p>{recipe.text}</p> */}
+        {/* Add more details or content here */}
         <div>
           {/* Add Quill's CSS to style the editor */}
           <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
@@ -48,10 +52,6 @@ const RecipePage = () => {
           <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
         </div>
       </div>
-      <h1>{recipe.title}</h1>
-      <p>{recipe.text}</p>
-      <img src={recipe.pictureURL} alt={recipe.title} />
-      {/* Add more details or content here */}
     </div>
   )
 }
