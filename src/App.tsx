@@ -2,7 +2,7 @@
 import './App.css'
 import './style.css'
 import React, { useLayoutEffect } from 'react'
-import { Home, Login, Create, Recipes } from './pages'
+import { Home, Login, Create, Recipes, RecipePage } from './pages'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { Navbar } from './components'
 
@@ -26,8 +26,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Recipes />} />
         <Route path="/create" element={<Create />} />
-        <Route path="/component/:id" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/recipe/:title" element={<RecipePage />} />
       </Routes>
     </Router>
   )

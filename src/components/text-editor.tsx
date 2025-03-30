@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Quill from 'quill'
 import axios from 'axios'
-import { Button } from '@mui/material'
-// import("quill")
-
+import { Button, TextField } from '@mui/material'
 
 type TextEditorProps = {
   id?: string
@@ -11,7 +9,9 @@ type TextEditorProps = {
 
 const TextEditor = (props: TextEditorProps) => {
   const editorRef = useRef(null)
+  const [postTitle, setPostTitle] = useState('')
   const [jsonContent, setJsonContent] = useState<string>('')
+  const [loading, setLoading] = useState(false)
 
   const toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -41,6 +41,7 @@ const TextEditor = (props: TextEditorProps) => {
     }
   }, [])
 
+  // load all the recipes in the beginning
   useEffect(() => {
     let processing = true
     if (props.id) {
@@ -72,16 +73,77 @@ const TextEditor = (props: TextEditorProps) => {
     }
   }
 
+  const handleGetText = () => {
+    if (editorRef.current) {
+      const quill = editorRef.current._quill
+      if (quill) {
+        // Use the quill instance to get content
+        const text = quill.getText()
+        return text || ''
+      }
+    }
+  }
+  const checkRecipeExists = async title => {
+    console.log(title)
+    try {
+      // Assuming you're searching for the recipe by title
+      const response = await axios.get(`http://localhost:4001/Nourristar/Recipes/${title}`)
+      if (response.data) {
+        // Recipe exists, handle accordingly
+        console.log('Recipe already exists:', response.data)
+        return true // Indicating the recipe exists
+      } else {
+        console.log('recipe doesnt exist')
+        return false // Recipe doesn't exist
+      }
+    } catch (err) {
+      if (err.response && err.response.status === 404) {
+        return false
+      } else {
+        console.error('Error checking recipe:', err)
+        return false // Handle error, assuming no recipe exists}
+      }
+    }
+  }
+
+  const getUniqueTitle = async () => {
+    // replace special characters and hyphens
+    const cleanTitle = postTitle.replace(/[^\w\-]+/g, '').replace(/-/g, '')
+    // return cleanTitle
+    let sameTitle = true
+    let uniqueID = -1
+    let title = cleanTitle
+    // check if this title already exists
+    while (sameTitle) {
+      if (uniqueID > 100) {
+        console.log('there was an error with finding a unique title')
+        return 'bad title'
+      }
+      if (!loading) {
+        setLoading(true)
+        const titleExists = await checkRecipeExists(title)
+        setLoading(false)
+        if (titleExists) {
+          uniqueID++
+          title = cleanTitle + '-' + uniqueID
+        } else {
+          return title
+        }
+      }
+    }
+  }
+
   const axiosPostData = async () => {
-    const text = handleGetDelta()
-    console.log(text)
+    const title = await getUniqueTitle()
     const dateTime = new Date()
     const postData = {
       userid: props.id ?? '',
-      text: text,
+      text: handleGetText(),
       dateTime: dateTime,
       tags: '', // TODO: allow for tags
       pictureURL: '',
+      title: title,
+      content: handleGetDelta(),
     }
     await axios
       .post('http://localhost:4001/post-recipe', postData)
@@ -106,8 +168,21 @@ const TextEditor = (props: TextEditorProps) => {
     }
   }
 
+  const currentElement = document.querySelector('.post-title') // The current element
+  const nextElement = currentElement?.nextElementSibling // Get the next element
+
+  const width = nextElement instanceof HTMLElement ? nextElement.offsetWidth : '75%'
+
   return (
-    <div className="content center gap-none">
+    <div className="content center gap-none wide-flex-col">
+      <TextField
+        label="Recipe Title"
+        variant="outlined"
+        value={postTitle}
+        onChange={e => setPostTitle(e.target.value)}
+        className="post-title"
+        style={{ width: width, marginBottom: '2rem' }}
+      />
       <div>
         {/* Add Quill's CSS to style the editor */}
         <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
