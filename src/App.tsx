@@ -2,7 +2,7 @@
 import './App.css'
 import './style.css'
 import React, { useLayoutEffect } from 'react'
-import { Home, Login, Create, Recipes, RecipePage } from './pages'
+import { Home, LoginSignup, Create, Recipes, RecipePage } from './pages'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { Navbar } from './components'
 
