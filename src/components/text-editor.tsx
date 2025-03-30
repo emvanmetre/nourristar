@@ -109,31 +109,32 @@ const TextEditor = (props: TextEditorProps) => {
   const getUniqueTitle = async () => {
     // replace special characters and hyphens
     const cleanTitle = postTitle.replace(/[^\w\-]+/g, '').replace(/-/g, '')
-    return cleanTitle
-    // let sameTitle = true
-    // let uniqueID = -1
-    // let title = cleanTitle
+    // return cleanTitle
+    let sameTitle = true
+    let uniqueID = -1
+    let title = cleanTitle
     // check if this title already exists
-    // while (sameTitle) {
-    //   if (uniqueID > 100) {
-    //     console.log('there was an error with finding a unique title')
-    //     return 'bad title'
-    //   }
-    //   if (!loading) {
-    //     setLoading(true)
-    //     const titleExists = await checkRecipeExists(title)
-    //     setLoading(false)
-    //     if (titleExists) {
-    //       uniqueID++
-    //       title = cleanTitle + '-' + uniqueID
-    //     } else {
-    //       return title
-    //     }
-    //   }
-    // }
+    while (sameTitle) {
+      if (uniqueID > 100) {
+        console.log('there was an error with finding a unique title')
+        return 'bad title'
+      }
+      if (!loading) {
+        setLoading(true)
+        const titleExists = await checkRecipeExists(title)
+        setLoading(false)
+        if (titleExists) {
+          uniqueID++
+          title = cleanTitle + '-' + uniqueID
+        } else {
+          return title
+        }
+      }
+    }
   }
 
   const axiosPostData = async () => {
+    const title = await getUniqueTitle()
     const dateTime = new Date()
     const postData = {
       userid: props.id ?? '',
@@ -141,7 +142,7 @@ const TextEditor = (props: TextEditorProps) => {
       dateTime: dateTime,
       tags: '', // TODO: allow for tags
       pictureURL: '',
-      title: postTitle, // getUniqueTitle(),
+      title: title,
       content: handleGetDelta(),
     }
     await axios

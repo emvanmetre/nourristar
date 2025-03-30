@@ -69,7 +69,8 @@ app.get('/Nourristar/Recipes/:title', async (req, res) => {
       res.json(recipeData)
     } else {
       // If no recipe is found, return a 404 error
-      res.status(404).json({ message: 'Recipe not found' })
+      // res.status(404).json({ message: 'Recipe not found' })
+      res.send(null)
     }
   } catch (err) {
     console.error(err)
