@@ -63,7 +63,7 @@ app.get('/Nourristar/Recipes/:title', async (req, res) => {
   const recipes = Recipes
   const { title } = req.params
   try {
-    const recipeData = await Recipes.findOne({ title: title }).exec()
+    const recipeData = await recipes.findOne({ title: title }).exec()
     if (recipeData) {
       // If the recipe is found, return it as a JSON response
       res.json(recipeData)

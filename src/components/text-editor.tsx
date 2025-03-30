@@ -11,6 +11,7 @@ const TextEditor = (props: TextEditorProps) => {
   const editorRef = useRef(null)
   const [postTitle, setPostTitle] = useState('')
   const [jsonContent, setJsonContent] = useState<string>('')
+  const [loading, setLoading] = useState(false)
 
   const toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -40,6 +41,7 @@ const TextEditor = (props: TextEditorProps) => {
     }
   }, [])
 
+  // load all the recipes in the beginning
   useEffect(() => {
     let processing = true
     if (props.id) {
@@ -82,6 +84,7 @@ const TextEditor = (props: TextEditorProps) => {
     }
   }
   const checkRecipeExists = async title => {
+    console.log(title)
     try {
       // Assuming you're searching for the recipe by title
       const response = await axios.get(`http://localhost:4001/Nourristar/Recipes/${title}`)
@@ -90,30 +93,44 @@ const TextEditor = (props: TextEditorProps) => {
         console.log('Recipe already exists:', response.data)
         return true // Indicating the recipe exists
       } else {
+        console.log('recipe doesnt exist')
         return false // Recipe doesn't exist
       }
     } catch (err) {
-      console.error('Error checking recipe:', err)
-      return false // Handle error, assuming no recipe exists
+      if (err.response && err.response.status === 404) {
+        return false
+      } else {
+        console.error('Error checking recipe:', err)
+        return false // Handle error, assuming no recipe exists}
+      }
     }
   }
 
-  const getUniqueTitle = () => {
+  const getUniqueTitle = async () => {
     // replace special characters and hyphens
     const cleanTitle = postTitle.replace(/[^\w\-]+/g, '').replace(/-/g, '')
-    let sameTitle = true
-    let uniqueID = -1
-    let title = cleanTitle
+    return cleanTitle
+    // let sameTitle = true
+    // let uniqueID = -1
+    // let title = cleanTitle
     // check if this title already exists
-    while (sameTitle) {
-      if (checkRecipeExists(title)) {
-        uniqueID++
-        title = cleanTitle + '-' + uniqueID
-      } else {
-        sameTitle = false
-      }
-    }
-    return title
+    // while (sameTitle) {
+    //   if (uniqueID > 100) {
+    //     console.log('there was an error with finding a unique title')
+    //     return 'bad title'
+    //   }
+    //   if (!loading) {
+    //     setLoading(true)
+    //     const titleExists = await checkRecipeExists(title)
+    //     setLoading(false)
+    //     if (titleExists) {
+    //       uniqueID++
+    //       title = cleanTitle + '-' + uniqueID
+    //     } else {
+    //       return title
+    //     }
+    //   }
+    // }
   }
 
   const axiosPostData = async () => {
@@ -124,7 +141,7 @@ const TextEditor = (props: TextEditorProps) => {
       dateTime: dateTime,
       tags: '', // TODO: allow for tags
       pictureURL: '',
-      title: getUniqueTitle(),
+      title: postTitle, // getUniqueTitle(),
       content: handleGetDelta(),
     }
     await axios
@@ -150,12 +167,20 @@ const TextEditor = (props: TextEditorProps) => {
     }
   }
 
+  const currentElement = document.querySelector('.post-title') // The current element
+  const nextElement = currentElement?.nextElementSibling // Get the next element
+
+  const width = nextElement instanceof HTMLElement ? nextElement.offsetWidth : '75%'
+
   return (
     <div className="content center gap-none wide-flex-col">
       <TextField
         label="Recipe Title"
         variant="outlined"
-        fullWidth // This will make the text field take up 100% of the container's width
+        value={postTitle}
+        onChange={e => setPostTitle(e.target.value)}
+        className="post-title"
+        style={{ width: width, marginBottom: '2rem' }}
       />
       <div>
         {/* Add Quill's CSS to style the editor */}
