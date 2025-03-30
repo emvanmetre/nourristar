@@ -26,13 +26,17 @@ const LoginSignup = () => {
 
     try {
       if(mode === 'login'){
-        const response = await axios.post("http://localhost:4000/login", { username, password })
+        const response = await axios.post("http://localhost:4001/login", { username, password })
         // Optionally save the token
         localStorage.setItem("token", response.data.token)
         setMessage("Login successful!")
+        window.location.href = "http://localhost:4000"
+
       } else {
-        await axios.post("http://localhost:4000/signup", { username, password })
+        await axios.post("http://localhost:4001/signup", { username: username, password: password })
         setMessage("Signup successful!")
+        window.location.href = "http://localhost:4000"
+
       }
     } catch (error) {
       console.log(error)
@@ -113,7 +117,7 @@ const LoginSignup = () => {
               {/* Optionally include a link for password recovery */}
               {mode === 'login' && (
                 <Typography variant="caption" display="block">
-                  <Link to="/forgot-password">Forgot password?</Link>
+                  {/* <Link to="/forgot-password">Forgot password?</Link> */}
                 </Typography>
               )}
             </Box>

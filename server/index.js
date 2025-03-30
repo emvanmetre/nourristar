@@ -12,6 +12,8 @@ import { Users, Recipes } from './schemas.js'
 
 dotenv.config()
 const app = express()
+const JWT_SECRET = process.env.JWT_SECRET;
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -72,6 +74,7 @@ app.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' })
     }
    // Generate a token (expires in 1 hour)
+   const JWT_SECRET = process.env.JWT_SECRET;
    const token = jwt.sign(
     { id: user._id, username: user.username },
     JWT_SECRET,

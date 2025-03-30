@@ -4,18 +4,6 @@ import bcrypt from 'bcrypt'
 
 const Schema = mongoose.Schema
 
-mongoose.connection.on("connected", () => {
-  console.log("MongoDB connected successfully")
-})
-
-
-// users
-// const userSchema = new Schema(
-//   {
-//     username: { type: String },
-//     password: { type: String },
-//   },
-//   { collection: 'Users' },
 // )
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
@@ -31,14 +19,7 @@ const userSchema = new Schema({
 // });
 
 
-// // recipe
-// const recipeSchema = new Schema({
-//   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
-//   text: { type: String, required: true },
-//   createdAt: { type: Date, default: Date.now },
-//   tags: [{ type: String }],
-//   picture: { type: String }, // URL to image
-// }, { collection: 'Recipes', timestamps: true});
+
 
 // saved recipe
 const savedRecipeSchema = new Schema({
@@ -47,11 +28,6 @@ const savedRecipeSchema = new Schema({
   rating: { type: Number, min: 1, max: 5 }, // Rating 1-5
 }, { collection: 'SavedRecipes'});
 
-const User = mongoose.model('Users', userSchema);
-const Recipe = mongoose.model('Recipes', recipeSchema);
-const SavedRecipe = mongoose.model('SavedRecipes', savedRecipeSchema);
-
-export { User, Recipe, SavedRecipe };
 // TODO: add recipe title to recipe schema
 const recipeSchema = new Schema(
   {
