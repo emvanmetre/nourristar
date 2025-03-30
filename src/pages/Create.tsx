@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import { TextEditor } from '../components'
@@ -14,14 +14,17 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }))
 
-const Create = () => {
+type CreateRecipeProps = {
+  id?: string
+}
+
+const Create = (props: CreateRecipeProps) => {
   document.body.classList.add('bg-light')
   return (
     <>
       <div className="large-navbar-space"></div>
-      <div className="content center gap-none">
-        <TextEditor></TextEditor>
-      </div>
+      {/* <TextEditor id={props.id ?? null}></TextEditor> */}
+      <TextEditor id={'67e86d0a7737632e735eed2a'}></TextEditor>
     </>
   )
 }
