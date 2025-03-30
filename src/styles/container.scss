@@ -32,10 +32,19 @@
     &.center {
         justify-content: center;
     }
+
+    &.gap-none {
+        gap: 0;
+    }
+
     
     &.padding-none {
         padding: 0;
         gap: 0;
+    }
+
+    &.space-between {
+        justify-content: space-between;
     }
 
     @media only screen and (min-width: 1150px) {

@@ -2,6 +2,7 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
+import { TextEditor } from '../components'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -19,21 +20,8 @@ const Home = () => {
   return (
     <>
       <div className="large-navbar-space"></div>
-      <div className="content">
-        <Grid container spacing={2}>
-          <Grid size={8}>
-            <Item>size=8</Item>
-          </Grid>
-          <Grid size={4}>
-            <Item>size=4</Item>
-          </Grid>
-          <Grid size={4}>
-            <Item>size=4</Item>
-          </Grid>
-          <Grid size={8}>
-            <Item>size=8</Item>
-          </Grid>
-        </Grid>
+      <div className="content center gap-none">
+        <TextEditor></TextEditor>
       </div>
     </>
   )

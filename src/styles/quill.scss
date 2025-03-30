@@ -1,0 +1,17 @@
+@use './tokens.scss';
+
+.ql-snow .ql-editor img {
+    max-width: 50%;
+  }
+  
+  .ql-editor {
+    min-height: 500px;
+  }
+
+  .ql-container {
+    background-color: tokens.$colors-neutral-white;
+  }
+
+  .ql-toolbar {
+    background-color: tokens.$colors-green-tint-1;
+  }
