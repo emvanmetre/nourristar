@@ -184,14 +184,14 @@ mongoose.connection.once('open', async () => {
 
   try {
     const collections = await mongoose.connection.db.listCollections().toArray()
-    console.log('Collections in DB:', collections)
+    // console.log('Collections in DB:', collections)
   } catch (err) {
     console.error('❌ Error listing collections:', err)
   }
   const users = Users
   try {
     const userData = await users.find({}).exec()
-    console.log(userData)
+    // console.log(userData)
   } catch (err) {
     console.log(err)
   }
