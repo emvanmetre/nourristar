@@ -11,6 +11,7 @@
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
     "bcrypt": "^5.1.1",
+    "quill": "^2.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-responsive": "^10.0.1",
@@ -53,7 +54,9 @@
     "mongodb": "^6.15.0",
     "mongoose": "^8.13.1",
     "prettier": "^3.5.3",
+    "quill": "^2.0.3",
     "react-router-dom": "^7.4.1",
-    "sass": "^1.86.0"
+    "sass": "^1.86.0",
+    "typescript": "^5.8.2"
   }
 }

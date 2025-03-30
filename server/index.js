@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 dotenv.config()
 // const router = express.Router()
-import Users from './schemas.js'
+import { Users, Recipes } from './schemas.js'
 
 const app = express()
 
@@ -33,6 +33,20 @@ app.post('/post', async (req, res) => {
   res.end()
 })
 
+app.post('/post-recipe', async (req, res) => {
+  console.log(req.body)
+  const { userid, text, dateTime, tags, pictureURL, title } = req.body
+  const recipeData = { userid: userid, text: text, dateTime: dateTime, tags: tags, pictureURL: pictureURL, title: title }
+  const newRecipe = new Recipes(recipeData)
+  try {
+    const saveRecipe = await newRecipe.save()
+    res.status(201).send('Recipe successfully saved!')
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Error saving recipe')
+  }
+})
+
 app.get('/Nourristar', async (req, res) => {
   // const users = Users
 
@@ -40,6 +54,31 @@ app.get('/Nourristar', async (req, res) => {
     const userData = await Users.find({})
     // const userData = await users.find({}).exec()
     res.send(JSON.stringify(userData))
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.get('/Nourristar/Recipes/:id', async (req, res) => {
+  const recipes = Recipes
+
+  try {
+    const recipeData = await recipes.findById(req.params.id)
+    res.send(JSON.stringify(recipeData))
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
+app.get('/Nourristar/Recipes/', async (req, res) => {
+  const recipes = Recipes
+
+  try {
+    const recipeData = await recipes.find({}).exec()
+    console.log(JSON.stringify(recipeData))
+    res.send(JSON.stringify(recipeData))
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: err.message })

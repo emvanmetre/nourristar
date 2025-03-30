@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
-import { TextEditor } from '../components'
+import { RecipeDisplay } from '../components'
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: '#fff',
@@ -14,13 +14,16 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }))
 
-const Home = () => {
+const Recipes = () => {
   document.body.classList.add('bg-light')
   return (
     <>
       <div className="large-navbar-space"></div>
+      {/* <TextEditor id={props.id ?? null}></TextEditor> */}
+
+      <RecipeDisplay></RecipeDisplay>
     </>
   )
 }
 
-export default Home
+export default Recipes

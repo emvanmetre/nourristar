@@ -55,10 +55,11 @@
 
     &.nav-title-link {
         color: tokens.$colors-primary-green;
-        flex-direction: column;
+        flex-direction: row;
         margin-right: 0px;
         padding: tokens.$size-spacing-2 tokens.$size-spacing-4;
         border-radius: tokens.$size-radius-4px;
+        align-items: center;
 
         &:hover {
             color: tokens.$colors-green-tint-1;

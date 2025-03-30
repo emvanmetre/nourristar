@@ -31,14 +31,14 @@ const userSchema = new Schema({
 // });
 
 
-// recipe
-const recipeSchema = new Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
-  text: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  tags: [{ type: String }],
-  picture: { type: String }, // URL to image
-}, { collection: 'Recipes', timestamps: true});
+// // recipe
+// const recipeSchema = new Schema({
+//   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+//   text: { type: String, required: true },
+//   createdAt: { type: Date, default: Date.now },
+//   tags: [{ type: String }],
+//   picture: { type: String }, // URL to image
+// }, { collection: 'Recipes', timestamps: true});
 
 // saved recipe
 const savedRecipeSchema = new Schema({
@@ -52,3 +52,19 @@ const Recipe = mongoose.model('Recipes', recipeSchema);
 const SavedRecipe = mongoose.model('SavedRecipes', savedRecipeSchema);
 
 export { User, Recipe, SavedRecipe };
+// TODO: add recipe title to recipe schema
+const recipeSchema = new Schema(
+  {
+    userid: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
+    text: { type: String },
+    dateTime: { type: Date, default: Date.now },
+    tags: { type: String },
+    pictureURL: { type: String },
+    title: { type: String },
+  },
+  { collection: 'Recipes' },
+)
+
+const Recipes = mongoose.model('Recipes', recipeSchema)
+const Users = mongoose.model('Users', userSchema)
+export { Recipes, Users }

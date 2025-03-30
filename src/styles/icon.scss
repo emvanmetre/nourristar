@@ -1,0 +1,53 @@
+@use './constants.scss';
+@use './tokens.scss';
+@use './token-map.scss';
+
+$-icon-name-svg-map: (
+    '-menu': constants.$icon-menu,
+    '-copy': constants.$icon-copy,
+    '-paste': constants.$icon-paste,
+    '-expand': constants.$icon-expand,
+    '-shrink': constants.$icon-shrink,
+    '-logo': constants.$icon-logo,
+    '-logo-star': constants.$icon-logo-star,
+);
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    vertical-align: middle;
+    text-decoration: none;
+    display: inline-block;
+    mask-size: contain;
+    mask-origin: content-box;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-image: constants.$icon-warning;
+    background-color: red;
+
+    &.sm {
+        width: 1rem;
+        height: 1rem;
+    }
+    &.md {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    &.lg {
+        width: 2rem;
+        height: 2rem;
+    }
+}
+
+@each $-name, $-svg in $-icon-name-svg-map {
+    .icon#{$-name} {
+        mask-image: $-svg;
+    }
+}
+
+@each $-color, $-token in token-map.$token-map {
+    .icon-color#{$-color} {
+        background-color: $-token;
+    }
+}
