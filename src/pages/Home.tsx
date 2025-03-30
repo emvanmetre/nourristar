@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { styled } from '@mui/material/styles'
 import Paper from '@mui/material/Paper'
 import { TextEditor } from '../components'
@@ -16,7 +16,13 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 const Home = () => {
-  document.body.classList.add('bg-image')
+  useEffect(() => {
+    document.body.classList.add('bg-image')
+    return () => {
+      document.body.classList.remove('bg-image')
+    }
+  }, [])
+
   return (
     <>      
     <div className="large-navbar-space"></div>
