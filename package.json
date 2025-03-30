@@ -10,11 +10,13 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
-    "quill": "^2.0.3",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-responsive": "^10.0.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,6 +47,8 @@
     ]
   },
   "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
     "axios": "^1.8.4",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
@@ -54,7 +58,7 @@
     "mongoose": "^8.13.1",
     "prettier": "^3.5.3",
     "quill": "^2.0.3",
-    "react-router-dom": "^7.4.1",
+    "react-router-dom": "^6.14.2",
     "sass": "^1.86.0",
     "typescript": "^5.8.2"
   }
