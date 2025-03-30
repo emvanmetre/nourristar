@@ -71,6 +71,18 @@ app.get('/Nourristar/Recipes/:id', async (req, res) => {
   }
 })
 
+app.get('/Nourristar/Recipes/', async (req, res) => {
+  const recipes = Recipes
+
+  try {
+    const recipeData = await recipes.find({}).exec()
+    res.send(JSON.stringify(recipeData))
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: err.message })
+  }
+})
+
 app.get('/Nourristar/:id', async (req, res) => {
   const users = Users
   try {

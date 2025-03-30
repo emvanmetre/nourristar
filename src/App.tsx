@@ -2,7 +2,7 @@
 import './App.css'
 import './style.css'
 import React, { useLayoutEffect } from 'react'
-import { Home, Create } from './pages'
+import { Home, Create, Recipes } from './pages'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import { Navbar } from './components'
 
@@ -24,7 +24,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/explore" element={<Home />} />
+        <Route path="/explore" element={<Recipes />} />
         <Route path="/create" element={<Create />} />
         <Route path="/component/:id" element={<Home />} />
       </Routes>
