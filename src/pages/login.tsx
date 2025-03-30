@@ -1,16 +1,7 @@
 import React, { useState } from 'react'
-import {
-  Box,
-  Button,
-  Container,
-  Card,
-  CardContent,
-  TextField,
-  Typography,
-  ThemeProvider,
-} from '@mui/material'
+import { Box, Button, Container, Card, CardContent, TextField, Typography, ThemeProvider } from '@mui/material'
 import axios from 'axios'
-import theme from '../core/theme' 
+import theme from '../core/theme'
 import { Link } from 'react-router-dom'
 
 const LoginSignup = () => {
@@ -20,23 +11,21 @@ const LoginSignup = () => {
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
     setMessage('')
 
     try {
-      if(mode === 'login'){
-        const response = await axios.post("http://localhost:4001/login", { username, password })
+      if (mode === 'login') {
+        const response = await axios.post('http://localhost:4001/login', { username, password })
         // Optionally save the token
-        localStorage.setItem("token", response.data.token)
-        setMessage("Login successful!")
-        window.location.href = "http://localhost:4000"
-
+        localStorage.setItem('token', response.data.token)
+        setMessage('Login successful!')
+        window.location.href = 'http://localhost:4000'
       } else {
-        await axios.post("http://localhost:4001/signup", { username: username, password: password })
-        setMessage("Signup successful!")
-        window.location.href = "http://localhost:4000"
-
+        await axios.post('http://localhost:4001/signup', { username: username, password: password })
+        setMessage('Signup successful!')
+        window.location.href = 'http://localhost:4000'
       }
     } catch (error) {
       console.log(error)
@@ -75,21 +64,8 @@ const LoginSignup = () => {
                 mt: 2,
               }}
             >
-              <TextField
-                label="Username"
-                variant="outlined"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-              <TextField
-                label="Password"
-                variant="outlined"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <TextField label="Username" variant="outlined" value={username} onChange={e => setUsername(e.target.value)} required />
+              <TextField label="Password" variant="outlined" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
               <Button variant="contained" type="submit">
                 {mode === 'login' ? 'Login' : 'Sign Up'}
               </Button>
@@ -101,9 +77,7 @@ const LoginSignup = () => {
             )}
             <Box sx={{ mt: 2, textAlign: 'center' }}>
               <Typography variant="body2">
-                {mode === 'login'
-                  ? "Don't have an account? "
-                  : "Already have an account? "}
+                {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
                 <Button
                   onClick={() => {
                     setMode(mode === 'login' ? 'signup' : 'login')
