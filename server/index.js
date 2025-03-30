@@ -35,8 +35,8 @@ app.post('/post', async (req, res) => {
 
 app.post('/post-recipe', async (req, res) => {
   console.log(req.body)
-  const { userid, text, dateTime, tags, pictureURL } = req.body
-  const recipeData = { userid: userid, text: text, dateTime: dateTime, tags: tags, pictureURL: pictureURL }
+  const { userid, text, dateTime, tags, pictureURL, title } = req.body
+  const recipeData = { userid: userid, text: text, dateTime: dateTime, tags: tags, pictureURL: pictureURL, title: title }
   const newRecipe = new Recipes(recipeData)
   try {
     const saveRecipe = await newRecipe.save()
@@ -76,6 +76,7 @@ app.get('/Nourristar/Recipes/', async (req, res) => {
 
   try {
     const recipeData = await recipes.find({}).exec()
+    console.log(JSON.stringify(recipeData))
     res.send(JSON.stringify(recipeData))
   } catch (err) {
     console.error(err)

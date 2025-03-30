@@ -16,6 +16,12 @@
     min-width: 200px;
     max-width: 1000px;
     padding: tokens.$size-sem-content-padding;
+
+    &.flex {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 .content {
