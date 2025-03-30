@@ -14,13 +14,16 @@ const Item = styled(Paper)(({ theme }) => ({
   }),
 }))
 
-const Home = () => {
+const Create = () => {
   document.body.classList.add('bg-light')
   return (
     <>
       <div className="large-navbar-space"></div>
+      <div className="content center gap-none">
+        <TextEditor></TextEditor>
+      </div>
     </>
   )
 }
 
-export default Home
+export default Create

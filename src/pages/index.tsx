@@ -1,3 +1,4 @@
 import Home from './Home'
+import Create from './Create'
 
-export { Home }
+export { Home, Create }
