@@ -10,7 +10,7 @@ const router = Router();
 router.post('/post', async (req, res) => {
   const { username, password } = req.body
   const userData = { username: username, password: password }
-  const newUsers = new Users(userData)
+  const newUsers = new User(userData)
   const saveUsers = await newUsers.save()
   if (saveUsers) {
     res.send('Component successfully saved!')
@@ -19,8 +19,9 @@ router.post('/post', async (req, res) => {
 })
 
 router.get('/Nourristar', async (req, res) => {
-  const users = schemas.Users
-
+  const users = await User.find({}, "username").exec();
+  res.json(users);
+  
   const userData = await users.find({}).exec()
   if (userData) {
     res.send(JSON.stringify(userData))
@@ -37,7 +38,7 @@ router.post("/signup", async (req, res) => {
     if (existingUser) return res.status(400).json({ message: "User already exists, please login" })
 
     const newUser = new User({ username, password })
-    const savedUser = await newUser.save()
+    await newUser.save()
     res.status(201).json({ message: "User created successfully" })
   } catch (error) {
     console.error("Error in /signup route:", error)
@@ -46,19 +47,31 @@ router.post("/signup", async (req, res) => {
 })
 
 // Login
+// Login or create user
 router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
   try {
-    const { username, password } = req.body
-    const user = await User.findOne({ username })
+    let user = await User.findOne({ username })
 
-    if (!user) return res.status(404).json({ message: "User not found" }) // User does not exist
-    if (user.password !== password) return res.status(401).json({ message: "Incorrect password" }) // Password mismatch
+    if (!user) {
+      // User does not exist -> create new user
+      user = new User({ username, password }) // No hashing for now
+      await user.save()
+      return res.json({ message: "Account created!", token: "fake-jwt-token" })
+    }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
-    res.json({ token }) // Login successful
+    // User exists, check password (ignoring hashing for now)
+    if (user.password !== password) {
+      return res.status(400).json({ message: "Incorrect password" })
+    }
+
+    // Successful login
+    res.json({ message: "Login successful!", token: "fake-jwt-token" })
+
   } catch (error) {
-    console.error("Error in /login route:", error)
-    res.status(500).json({ error: "Server error" })
+    console.error("Login error:", error)
+    res.status(500).json({ message: "Server error" })
   }
 })
 

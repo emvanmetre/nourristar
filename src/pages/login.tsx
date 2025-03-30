@@ -1,48 +1,45 @@
-import React, { useState } from "react"
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Login = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [message, setMessage] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [users, setUsers] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/Nourristar");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        setUsers([]);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const handleAction = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setMessage("")
+    e.preventDefault();
+    setMessage("");
 
     try {
-      // Check if the user exists and the password matches
-      const loginResponse = await axios.post("http://localhost:4000/login", { username, password })
-      setMessage("Login successful!") // Login successful
-      localStorage.setItem("token", loginResponse.data.token) // Save token if needed
-      
+      const loginResponse = await axios.post("http://localhost:4000/login", { username, password });
+      setMessage(loginResponse.data.message);
+      localStorage.setItem("token", loginResponse.data.token);
     } catch (error: any) {
-        
-      // Handle user not found or password mismatch
       if (error.response) {
-        const errorMessage = error.response.data.message
-        if (errorMessage === "User not found") {
-          try {
-            // If the user is not found, create an account
-            setMessage("Account created!") // Account created
-          } catch (signupError: any) {
-            setMessage(signupError.response?.data.message || "Error creating account")
-          }
-        } else if (errorMessage === "Incorrect password") {
-          setMessage("Incorrect password") // Password mismatch
-        } else {
-          setMessage("error here.")
-        }
+        setMessage(error.response.data.message);
       } else {
-        setMessage("eeeeerrrrorrerrror:")
-        setMessage(error)
-        console.log("error: ", error)
+        setMessage("Unexpected error occurred.");
       }
     }
-  }
+  };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+    <div style={{ textAlign: "center", padding: "2rem" }}>
+      <h2>Welcome</h2>
       <form
         onSubmit={handleAction}
         style={{
@@ -54,26 +51,16 @@ const Login = () => {
           borderRadius: "5px",
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
           width: "300px",
+          margin: "0 auto",
         }}
       >
-        <h2 style={{ textAlign: "center" }}>Welcome</h2>
         <label>
           Username:
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
         </label>
         <label>
           Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </label>
         <button
           type="submit"
@@ -90,8 +77,21 @@ const Login = () => {
         </button>
         {message && <p style={{ color: message.includes("successful") || message.includes("created") ? "green" : "red" }}>{message}</p>}
       </form>
-    </div>
-  )
-}
 
-export default Login
+      <h3>All Users in Database:</h3>
+      <ul style={{ listStyleType: "none", padding: 0 }}>
+        {users.length > 0 ? (
+          users.map((user, index) => (
+            <li key={index} style={{ padding: "0.5rem", borderBottom: "1px solid #ccc" }}>
+              <strong>Username:</strong> {user.username}
+            </li>
+          ))
+        ) : (
+          <p>No users found in the database.</p>
+        )}
+      </ul>
+    </div>
+  );
+};
+
+export default Login;

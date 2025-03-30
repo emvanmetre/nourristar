@@ -33,7 +33,7 @@ const userSchema = new Schema({
 
 // recipe
 const recipeSchema = new Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   text: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   tags: [{ type: String }],
@@ -42,13 +42,13 @@ const recipeSchema = new Schema({
 
 // saved recipe
 const savedRecipeSchema = new Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true },
   mealId: { type: mongoose.Schema.Types.ObjectId, ref: 'Recipe', required: true },
   rating: { type: Number, min: 1, max: 5 }, // Rating 1-5
 }, { collection: 'SavedRecipes'});
 
-const User = mongoose.model('User', userSchema);
-const Recipe = mongoose.model('Recipe', recipeSchema);
-const SavedRecipe = mongoose.model('SavedRecipe', savedRecipeSchema);
+const User = mongoose.model('Users', userSchema);
+const Recipe = mongoose.model('Recipes', recipeSchema);
+const SavedRecipe = mongoose.model('SavedRecipes', savedRecipeSchema);
 
 export { User, Recipe, SavedRecipe };
