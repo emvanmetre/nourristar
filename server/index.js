@@ -4,10 +4,13 @@ import cors from 'cors'
 // const router = require('./routes/router')
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-dotenv.config()
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+
 // const router = express.Router()
 import { Users, Recipes } from './schemas.js'
 
+dotenv.config()
 const app = express()
 
 app.use(express.json())
@@ -21,6 +24,66 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 //app.use('/', router)
+
+//// zdded
+app.post('/signup', async (req, res) => {
+const { username, password } = req.body
+
+if (!username || !password) {
+  return res.status(400).json({ message: 'Please provide username and password' })
+}
+
+try {
+  // Check if the user exists already
+  const existingUser = await Users.findOne({ username })
+  if (existingUser) {
+    return res.status(400).json({ message: 'User already exists' })
+  }
+   // Hash the password before saving
+   const hashedPassword = await bcrypt.hash(password, 10)
+   const newUser = new Users({ username, password: hashedPassword })
+   await newUser.save()
+
+   res.status(201).json({ message: 'Signup successful!' })
+ } catch (error) {
+   console.error('Error during signup:', error)
+   res.status(500).json({ message: 'Internal server error' })
+ }
+})
+
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Please provide username and password' })
+  }
+
+  try {
+    // Find user by username
+    const user = await Users.findOne({ username })
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' })
+    }
+
+    // Compare the provided password with the stored hashed password
+    const isMatch = await bcrypt.compare(password, user.password)
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' })
+    }
+   // Generate a token (expires in 1 hour)
+   const token = jwt.sign(
+    { id: user._id, username: user.username },
+    JWT_SECRET,
+    { expiresIn: '1h' }
+  )
+
+  res.json({ token })
+} catch (error) {
+  console.error('Error during login:', error)
+  res.status(500).json({ message: 'Internal server error' })
+}
+})
 
 app.post('/post', async (req, res) => {
   const { username, password } = req.body

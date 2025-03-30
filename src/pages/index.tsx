@@ -1,10 +1,8 @@
 import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
-
-export { Home, Login, Signup }
 import Create from './Create'
 import Recipes from './Recipes'
-import RecipePage from './Recipe'
+import RecipePage from './Recipes'
 
-export { Home, Create, Recipes, RecipePage }
+export {  Home, Login, Signup, Create, Recipes, RecipePage }
