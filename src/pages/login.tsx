@@ -1,44 +1,50 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"
+import axios from "axios"
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [message, setMessage] = useState("")
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage("");
+  const handleAction = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setMessage("")
 
     try {
-      const response = await axios.post("http://localhost:4000/login", {
-        username,
-        password,
-      });
-
-      if (response.data.token) {
-        // Store the token in localStorage (or another secure location)
-        localStorage.setItem("token", response.data.token);
-
-        // Redirect to the desired URL
-        navigate("/");
-        window.location.href = "http://localhost:4000";
-      }
+      // Check if the user exists and the password matches
+      const loginResponse = await axios.post("http://localhost:4000/login", { username, password })
+      setMessage("Login successful!") // Login successful
+      localStorage.setItem("token", loginResponse.data.token) // Save token if needed
+      
     } catch (error: any) {
-      if (error.response && error.response.data.message) {
-        setErrorMessage(error.response.data.message);
+        
+      // Handle user not found or password mismatch
+      if (error.response) {
+        const errorMessage = error.response.data.message
+        if (errorMessage === "User not found") {
+          try {
+            // If the user is not found, create an account
+            setMessage("Account created!") // Account created
+          } catch (signupError: any) {
+            setMessage(signupError.response?.data.message || "Error creating account")
+          }
+        } else if (errorMessage === "Incorrect password") {
+          setMessage("Incorrect password") // Password mismatch
+        } else {
+          setMessage("error here.")
+        }
       } else {
-        setErrorMessage("An error occurred. Please try again.");
+        setMessage("eeeeerrrrorrerrror:")
+        setMessage(error)
+        console.log("error: ", error)
       }
     }
-  };
+  }
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleAction}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -50,7 +56,7 @@ const Login = () => {
           width: "300px",
         }}
       >
-        <h2 style={{ textAlign: "center" }}>Login</h2>
+        <h2 style={{ textAlign: "center" }}>Welcome</h2>
         <label>
           Username:
           <input
@@ -69,13 +75,23 @@ const Login = () => {
             required
           />
         </label>
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-        <button type="submit" style={{ padding: "0.5rem", border: "none", borderRadius: "5px", backgroundColor: "#007bff", color: "#fff", cursor: "pointer" }}>
-          Login
+        <button
+          type="submit"
+          style={{
+            padding: "0.5rem",
+            border: "none",
+            borderRadius: "5px",
+            backgroundColor: "#007bff",
+            color: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          Let's Go
         </button>
+        {message && <p style={{ color: message.includes("successful") || message.includes("created") ? "green" : "red" }}>{message}</p>}
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

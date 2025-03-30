@@ -1,7 +1,13 @@
+//schemas.js
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
 const Schema = mongoose.Schema
+
+mongoose.connection.on("connected", () => {
+  console.log("MongoDB connected successfully")
+})
+
 
 // users
 // const userSchema = new Schema(
@@ -13,15 +19,17 @@ const Schema = mongoose.Schema
 // )
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true }, // Hashed password
+  password: { type: String, required: true }, // COMMENT THE BELOW CODE BACK IN TO HASH THE PASSWORD
 }, { collection: 'Users'});
 
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
+// with hashed password
+// userSchema.pre('save', async function (next) {
+//   if (!this.isModified('password')) return next();
+//   const salt = await bcrypt.genSalt(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+//   next();
+// });
+
 
 // recipe
 const recipeSchema = new Schema({

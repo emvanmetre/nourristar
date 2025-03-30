@@ -1,3 +1,4 @@
+//router.js
 import { Router } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -33,13 +34,13 @@ router.post("/signup", async (req, res) => {
   try {
     const { username, password } = req.body;
     const existingUser = await User.findOne({ username })
-    if (existingUser) return res.status(400).json({ message: "User already exists" })
+    if (existingUser) return res.status(400).json({ message: "User already exists, please login" })
 
-    const newUser = new Users({ username, password })
-    await newUser.save();
-
+    const newUser = new User({ username, password })
+    const savedUser = await newUser.save()
     res.status(201).json({ message: "User created successfully" })
   } catch (error) {
+    console.error("Error in /signup route:", error)
     res.status(500).json({ error: "Server error" })
   }
 })
@@ -47,18 +48,21 @@ router.post("/signup", async (req, res) => {
 // Login
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password } = req.body
     const user = await User.findOne({ username })
 
-    if (!user || !(await bcrypt.compare(password, user.password)))
-      return res.status(400).json({ message: "Invalid credentials" })
+    if (!user) return res.status(404).json({ message: "User not found" }) // User does not exist
+    if (user.password !== password) return res.status(401).json({ message: "Incorrect password" }) // Password mismatch
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" })
-    res.json({ token })
+    res.json({ token }) // Login successful
   } catch (error) {
+    console.error("Error in /login route:", error)
     res.status(500).json({ error: "Server error" })
   }
 })
+
+
 
 //////////////// recipes
 // Add recipe

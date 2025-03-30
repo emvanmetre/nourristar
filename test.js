@@ -16,7 +16,7 @@ connect('mongodb://localhost:27017/nourristar')
 
     // create a new user
     ////////////!!! just change the username so it doesnt add duplicates
-    const newUser = new User({ username: "testuser1", password: "testpassword" })
+    const newUser = new User({ username: "testuser2", password: "testpassword" })
     let savedUser;
 
     try {
@@ -32,6 +32,13 @@ connect('mongodb://localhost:27017/nourristar')
     const newRecipe = new Recipe({
       userId: savedUser._id,
       text: "banana bread",
+      tags: ["dessert", "vegetarian"],
+      picture: "https://example.com/test-recipe.jpg"
+    })
+
+    const newRecipe1 = new Recipe({
+      userId: savedUser._id,
+      text: "zucchini bread",
       tags: ["dessert", "vegetarian"],
       picture: "https://example.com/test-recipe.jpg"
     })

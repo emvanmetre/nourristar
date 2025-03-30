@@ -34,10 +34,11 @@ app.post('/post', async (req, res) => {
 })
 
 app.get('/Nourristar', async (req, res) => {
-  const users = Users
+  // const users = Users
 
   try {
-    const userData = await users.find({}).exec()
+    const userData = await Users.find({})
+    // const userData = await users.find({}).exec()
     res.send(JSON.stringify(userData))
   } catch (err) {
     console.error(err)
@@ -46,9 +47,9 @@ app.get('/Nourristar', async (req, res) => {
 })
 
 app.get('/Nourristar/:id', async (req, res) => {
-  const users = Users
+  // const users = Users
   try {
-    const userData = await users.findById(req.params.id)
+    const userData = await Users.findById(req.params.id)
     if (!userData) {
       res.status(404).json({ message: 'User not found' })
     } else {
