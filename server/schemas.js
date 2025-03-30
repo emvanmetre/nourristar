@@ -17,6 +17,7 @@ const recipeSchema = new Schema(
     tags: { type: String },
     pictureURL: { type: String },
     title: { type: String },
+    content: { type: String, required: true },
   },
   { collection: 'Recipes' },
 )

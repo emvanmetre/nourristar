@@ -178,27 +178,28 @@ const RecipeDisplay = () => {
         <Grid container spacing={3} style={{ flexGrow: 1 }}>
           {filteredRecipes.map((recipe, index) => (
             <Grid size={6} key={index}>
-              <Link to={`/recipe/${recipe.title}`} style={{ textDecoration: 'none' }}></Link>
-              <Card>
-                {
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      height: 200, // Set fixed height
-                      width: '100%', // Ensure it fills the card width
-                      objectFit: 'cover', // Crop instead of stretching
-                    }}
-                    image={recipe.pictureURL || '../../recipe-not-found.png'}
-                    alt="Recipe"
-                  />
-                }
-                <CardContent>
-                  <Typography variant="h6">{recipe.text}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {new Date(recipe.dateTime).toLocaleString()}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <Link to={`/recipe/${recipe.title.replace(/\s+/g, '-')}`} style={{ textDecoration: 'none' }}>
+                <Card>
+                  {
+                    <CardMedia
+                      component="img"
+                      sx={{
+                        height: 200, // Set fixed height
+                        width: '100%', // Ensure it fills the card width
+                        objectFit: 'cover', // Crop instead of stretching
+                      }}
+                      image={recipe.pictureURL || '../../recipe-not-found.png'}
+                      alt="Recipe"
+                    />
+                  }
+                  <CardContent>
+                    <Typography variant="h6">{recipe.text.replace(/^\s*[\r\n]/gm, '')}</Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {new Date(recipe.dateTime).toLocaleString()}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Link>
             </Grid>
           ))}
         </Grid>

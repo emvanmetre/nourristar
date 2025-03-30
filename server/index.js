@@ -35,8 +35,8 @@ app.post('/post', async (req, res) => {
 
 app.post('/post-recipe', async (req, res) => {
   console.log(req.body)
-  const { userid, text, dateTime, tags, pictureURL, title } = req.body
-  const recipeData = { userid: userid, text: text, dateTime: dateTime, tags: tags, pictureURL: pictureURL, title: title }
+  const { userid, text, dateTime, tags, pictureURL, title, content } = req.body
+  const recipeData = { userid: userid, text: text, dateTime: dateTime, tags: tags, pictureURL: pictureURL, title: title, content: content }
   const newRecipe = new Recipes(recipeData)
   try {
     const saveRecipe = await newRecipe.save()
@@ -59,12 +59,18 @@ app.get('/Nourristar', async (req, res) => {
   }
 })
 
-app.get('/Nourristar/Recipes/:id', async (req, res) => {
+app.get('/Nourristar/Recipes/:title', async (req, res) => {
   const recipes = Recipes
-
+  const { title } = req.params
   try {
-    const recipeData = await recipes.findById(req.params.id)
-    res.send(JSON.stringify(recipeData))
+    const recipeData = await Recipes.findOne({ title: title }).exec()
+    if (recipeData) {
+      // If the recipe is found, return it as a JSON response
+      res.json(recipeData)
+    } else {
+      // If no recipe is found, return a 404 error
+      res.status(404).json({ message: 'Recipe not found' })
+    }
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: err.message })
