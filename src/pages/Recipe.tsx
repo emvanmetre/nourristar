@@ -4,6 +4,8 @@ import axios from 'axios'
 import Quill from 'quill'
 
 const RecipePage = () => {
+  document.body.classList.add('bg-light')
+  document.body.classList.remove('bg-image')
   const { title } = useParams() // Get the dynamic 'title' from the URL
   const [recipe, setRecipe] = useState(null)
   const editorRef = useRef(null)
